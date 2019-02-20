@@ -14,6 +14,5 @@ namespace AngularEFCoreDemo.Models
         public DbSet<ReaderTicket> ReaderTickets { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<BookTakeEvent> BookTakeEvents { get; set; }
-        public DbSet<Role> Roles { get; set; }
     }
 }

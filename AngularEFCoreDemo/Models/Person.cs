@@ -9,9 +9,7 @@ namespace AngularEFCoreDemo.Models
         public string LastName { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime DeathDate { get; set; }
-        public int RoleId { get; set; }
+        public Roles Roles { get; set; }
         public bool IsDeleted { get; set; }
-
-        public Role Role { get; set; }
     }
 }
