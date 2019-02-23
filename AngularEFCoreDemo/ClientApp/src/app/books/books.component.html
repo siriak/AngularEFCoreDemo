@@ -1,20 +1,24 @@
-<h1>Weather forecast</h1>
+<h1>Books</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
-
-<p *ngIf="!books"><em>Loading...</em></p>
+Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
 
 <table class='table table-striped' *ngIf="books">
   <thead>
     <tr>
-      <th>id</th>
-      <th>ISBN</th>
+      <th>Id</th>
+      <th>Edition</th>
+      <th>Section</th>
+      <th>Deleted</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let book of books">
-      <td>{{ book.bookId }}</td>
-      <td>{{ book.isbn }}</td>
+    <tr *ngFor="let book of getList()">
+      <td><input type="number" [(ngModel)]="book.bookId"></td>
+      <td><input type="number" [(ngModel)]="book.bookEditionId"><a [routerLink]="['/book-editions', book.bookEditionId]">View</a></td>
+      <td><input type="number" [(ngModel)]="book.sectionId"><a [routerLink]="['/sections', book.sectionId]">View</a></td>
+      <td><input type="checkbox" [(ngModel)]="book.isDeleted"></td>
     </tr>
   </tbody>
 </table>
+
+<button (click)="update()">Update</button>

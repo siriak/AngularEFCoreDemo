@@ -1,0 +1,32 @@
+<h1>Book Take Events</h1>
+
+Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
+
+<table class='table table-striped' *ngIf="bookTakeEvents">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Book</th>
+      <th>Ticket</th>
+      <th>Librarian</th>
+      <th>Give Date</th>
+      <th>Expected Return Date</th>
+      <th>Actual Return Date</th>
+      <th>Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bookTakeEvent of getList()">
+      <td><input type="number" [(ngModel)]="bookTakeEvent.bookTakeEventId"></td>
+      <td><input type="number" [(ngModel)]="bookTakeEvent.bookId"><a [routerLink]="['/books', bookTakeEvent.bookId]">View</a></td>
+      <td><input type="number" [(ngModel)]="bookTakeEvent.ticketId"><a [routerLink]="['/reader-tickets', bookTakeEvent.ticketId]">View</a></td>
+      <td><input type="number" [(ngModel)]="bookTakeEvent.personId"><a [routerLink]="['/people', bookTakeEvent.personId]">View</a></td>
+      <td><input type="date" [value]="bookTakeEvent.giveDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.giveDate=parseDate($event.target.value)"></td>
+      <td><input type="date" [value]="bookTakeEvent.expectedReturnDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.expectedReturnDate=parseDate($event.target.value)"></td>
+      <td><input type="date" [value]="bookTakeEvent.actualReturnDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.actualReturnDate=parseDate($event.target.value)"></td>
+      <td><input type="checkbox" [(ngModel)]="bookTakeEvent.isDeleted"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="update()">Update</button>

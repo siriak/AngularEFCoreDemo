@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { BooksClient, Book } from '../clients';
+import { SectionsClient, Section } from '../clients';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'books',
-  templateUrl: './books.component.html'
+  selector: 'sections',
+  templateUrl: './sections.component.html'
 })
-export class BooksComponent {
+export class SectionsComponent {
   public showDeleted: boolean;
-  books: Book[];
+  sections: Section[];
 
-  constructor(private client: BooksClient, private route: ActivatedRoute) {
+  constructor(private client: SectionsClient, private route: ActivatedRoute) {
     this.get();
   }
 
   update() {
-    this.client.put(this.books).subscribe(
+    this.client.put(this.sections).subscribe(
       () => {},
       () => {},
       () => this.get());
@@ -26,17 +26,17 @@ export class BooksComponent {
       const id = p['id'];
       if (id) {
         this.client.get(id).subscribe(
-          result => this.books = [result],
+          result => this.sections = [result],
           error => console.error(error));
       } else {
         this.client.getAll().subscribe(
-          result => this.books = result,
+          result => this.sections = result,
           error => console.error(error));
       }
     });
   }
 
   getList() {
-    return this.books.filter(book => this.showDeleted || !book.isDeleted)
+    return this.sections.filter(book => this.showDeleted || !book.isDeleted)
   }
 }

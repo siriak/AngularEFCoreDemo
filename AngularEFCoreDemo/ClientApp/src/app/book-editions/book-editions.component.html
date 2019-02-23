@@ -1,0 +1,22 @@
+<h1>Book Editions</h1>
+
+Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
+
+<table class='table table-striped' *ngIf="bookEditions">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bookEdition of getList()">
+      <td><input type="number" [(ngModel)]="bookEdition.bookEditionId"></td>
+      <td><input type="text" [(ngModel)]="bookEdition.title"></td>
+      <td><input type="checkbox" [(ngModel)]="bookEdition.isDeleted"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="update()">Update</button>

@@ -1,0 +1,28 @@
+<h1>Sections</h1>
+
+Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
+
+<table class='table table-striped' *ngIf="sections">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Building</th>
+      <th>Room</th>
+      <th>Cabinet</th>
+      <th>Shelf</th>
+      <th>Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let section of getList()">
+      <td><input type="number" [(ngModel)]="section.sectionId"></td>
+      <td><input type="number" [(ngModel)]="section.building"></td>
+      <td><input type="number" [(ngModel)]="section.room"></td>
+      <td><input type="number" [(ngModel)]="section.cabinet"></td>
+      <td><input type="number" [(ngModel)]="section.shelf"></td>
+      <td><input type="checkbox" [(ngModel)]="section.isDeleted"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="update()">Update</button>

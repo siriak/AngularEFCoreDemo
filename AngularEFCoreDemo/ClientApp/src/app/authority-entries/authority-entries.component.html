@@ -1,0 +1,26 @@
+<h1>Authority Entries</h1>
+
+Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
+
+<table class='table table-striped' *ngIf="authorityEntries">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Order</th>
+      <th>Author</th>
+      <th>Book Edition</th>
+      <th>Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let authorityEntry of getList()">
+      <td><input type="number" [(ngModel)]="authorityEntry.authorityEntryId"></td>
+      <td><input type="number" [(ngModel)]="authorityEntry.order"></td>
+      <td><input type="number" [(ngModel)]="authorityEntry.personId"><a [routerLink]="['/people', authorityEntry.personId]">View</a></td>
+      <td><input type="number" [(ngModel)]="authorityEntry.bookEditionId"><a [routerLink]="['/book-editions', authorityEntry.bookEditionId]">View</a></td>
+      <td><input type="checkbox" [(ngModel)]="authorityEntry.isDeleted"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="update()">Update</button>

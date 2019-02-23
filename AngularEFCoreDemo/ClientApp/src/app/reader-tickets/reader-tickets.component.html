@@ -1,0 +1,26 @@
+<h1>Reader tickets</h1>
+
+Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
+
+<table class='table table-striped' *ngIf="readerTickets">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Creation Date</th>
+      <th>Expiration Name</th>
+      <th>Reader</th>
+      <th>Deleted</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let readerTicket of getList()">
+      <td><input type="number" [(ngModel)]="readerTicket.readerTicketId"></td>
+      <td><input type="date" [value]="readerTicket.creationDate | date:'yyyy-MM-dd'" (input)="readerTicket.creationDate=parseDate($event.target.value)"></td>
+      <td><input type="date" [value]="readerTicket.expirationDate | date:'yyyy-MM-dd'" (input)="readerTicket.expirationDate=parseDate($event.target.value)"></td>
+      <td><input type="number" [(ngModel)]="readerTicket.readerId"><a [routerLink]="['/people', readerTicket.readerId]">View</a></td>
+      <td><input type="checkbox" [(ngModel)]="readerTicket.isDeleted"></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="update()">Update</button>
