@@ -28,7 +28,7 @@ namespace AngularEFCoreDemo
                 try
                 {
                     var context = services.GetRequiredService<LibraryContext>();
-                    DataBaseInitializer.Seed(context);//<---Do your seeding here
+                    DBInitializer.Seed(context);
                 }
                 catch (Exception ex)
                 {

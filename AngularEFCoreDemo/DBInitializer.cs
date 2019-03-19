@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AngularEFCoreDemo
 {
-    internal class DataBaseInitializer
+    internal class DBInitializer
     {
         public static void Seed(LibraryContext context)
         {
@@ -17,7 +17,7 @@ namespace AngularEFCoreDemo
                     FirstName = "Stephen",
                     LastName = "King",
                     BirthDate = new DateTime(1947, 9, 21),
-                    Roles = Roles.Author,
+                    Role = Role.None,
                 };
 
                 var bookIt = new BookEdition()
@@ -63,7 +63,7 @@ namespace AngularEFCoreDemo
                     FirstName = "Andrii",
                     LastName = "Siriak",
                     BirthDate = new DateTime(1999, 9, 2),
-                    Roles = Roles.Student,
+                    Role = Role.Student,
                 };
 
                 var myTicket = new ReaderTicket()
@@ -78,7 +78,7 @@ namespace AngularEFCoreDemo
                     FirstName = "Marija",
                     LastName = "Ivanova",
                     BirthDate = new DateTime(1914, 9, 2),
-                    Roles = Roles.Librarian,
+                    Role = Role.Librarian,
                 };
 
                 var bookTake = new BookTakeEvent()

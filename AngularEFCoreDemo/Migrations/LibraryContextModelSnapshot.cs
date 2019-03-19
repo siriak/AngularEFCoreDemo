@@ -3,6 +3,7 @@ using System;
 using AngularEFCoreDemo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AngularEFCoreDemo.Migrations
 {
@@ -117,7 +118,7 @@ namespace AngularEFCoreDemo.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<int>("Roles");
+                    b.Property<byte>("Role");
 
                     b.HasKey("PersonId");
 

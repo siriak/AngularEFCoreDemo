@@ -4,12 +4,13 @@ using AngularEFCoreDemo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AngularEFCoreDemo.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20190220064511_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190319065008_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,7 +120,7 @@ namespace AngularEFCoreDemo.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<int>("Roles");
+                    b.Property<byte>("Role");
 
                     b.HasKey("PersonId");
 
