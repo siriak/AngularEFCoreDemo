@@ -1,5 +1,6 @@
 ﻿using AngularEFCoreDemo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,10 +14,15 @@ namespace AngularEFCoreDemo.Controllers
         public ReaderTicketsController(LibraryContext context) => this.context = context;
 
         [HttpGet]
-        public ActionResult<ICollection<ReaderTicket>> Get() => context.ReaderTickets.ToList();
+        public ActionResult<ICollection<ReaderTicket>> Get() => context.ReaderTickets.Include(t => t.Reader).ToList();
 
         [HttpGet("{id}")]
-        public ActionResult<ReaderTicket> Get(int id) => context.ReaderTickets.Find(id);
+        public ActionResult<ReaderTicket> Get(int id)
+        {
+            var ticket = context.ReaderTickets.Find(id);
+            ticket.Reader = context.People.Find(ticket.ReaderId);
+            return ticket;
+        }
 
         [HttpPost("{id}")]
         public ActionResult PostAsync(int id, [FromBody]ReaderTicket readerTicket)

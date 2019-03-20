@@ -1,5 +1,6 @@
 ﻿using AngularEFCoreDemo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,12 +14,17 @@ namespace AngularEFCoreDemo.Controllers
         public BooksController(LibraryContext context) => this.context = context;
 
         [HttpGet]
-        public ActionResult<ICollection<Book>> Get() => context.Books.ToList();
+        public ActionResult<ICollection<Book>> Get() => context.Books.Include(b => b.BookEdition).ToList();
 
         [HttpGet("{id}")]
-        public ActionResult<Book> Get(int id) => context.Books.Find(id);
+        public ActionResult<Book> Get(int id)
+        {
+            var book = context.Books.Find(id);
+            book.BookEdition = context.BookEditions.Find(book.BookEditionId);
+            return book;
+        }
 
-        [HttpPost("{id}")]
+    [HttpPost("{id}")]
         public ActionResult PostAsync(int id, [FromBody]Book book)
         {
             if (id != book.BookId)
