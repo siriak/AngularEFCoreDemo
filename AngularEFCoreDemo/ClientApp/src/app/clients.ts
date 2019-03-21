@@ -2326,7 +2326,7 @@ export class Person implements IPerson {
     lastName?: string | undefined;
     birthDate!: string;
     deathDate!: string;
-    roles!: Roles;
+    role!: Role;
     isDeleted!: boolean;
 
     constructor(data?: IPerson) {
@@ -2345,7 +2345,7 @@ export class Person implements IPerson {
             this.lastName = data["lastName"];
             this.birthDate = data["birthDate"];
             this.deathDate = data["deathDate"];
-            this.roles = data["roles"];
+            this.role = data["role"];
             this.isDeleted = data["isDeleted"];
         }
     }
@@ -2364,7 +2364,7 @@ export class Person implements IPerson {
         data["lastName"] = this.lastName;
         data["birthDate"] = this.birthDate;
         data["deathDate"] = this.deathDate;
-        data["roles"] = this.roles;
+        data["role"] = this.role;
         data["isDeleted"] = this.isDeleted;
         return data; 
     }
@@ -2376,16 +2376,15 @@ export interface IPerson {
     lastName?: string | undefined;
     birthDate: string;
     deathDate: string;
-    roles: Roles;
+    role: Role;
     isDeleted: boolean;
 }
 
-export enum Roles {
+export enum Role {
     None = 0, 
-    Author = 1, 
-    Librarian = 2, 
-    Teacher = 4, 
-    Student = 8, 
+    Student = 1, 
+    Teacher = 2, 
+    Librarian = 3, 
 }
 
 export class BookEdition implements IBookEdition {
