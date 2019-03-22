@@ -65,6 +65,11 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
+                if (authorityEntry.IsDeleted)
+                {
+                    context.MarkDeleted(authorityEntry);
+                }
+
                 context.AuthorityEntries.Update(authorityEntry);
                 context.SaveChanges();
             }
@@ -81,6 +86,14 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
+                foreach (var authorityEntry in authorityEntries)
+                {
+                    if (authorityEntry.IsDeleted)
+                    {
+                        context.MarkDeleted(authorityEntry);
+                    }
+                }
+
                 context.AuthorityEntries.UpdateRange(authorityEntries);
                 context.SaveChanges();
             }

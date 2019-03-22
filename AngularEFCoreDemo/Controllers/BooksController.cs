@@ -24,7 +24,7 @@ namespace AngularEFCoreDemo.Controllers
             return book;
         }
 
-    [HttpPost("{id}")]
+        [HttpPost("{id}")]
         public ActionResult PostAsync(int id, [FromBody]Book book)
         {
             if (id != book.BookId)
@@ -71,6 +71,11 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
+                if (book.IsDeleted)
+                {
+                    context.MarkDeleted(book);
+                }
+
                 context.Books.Update(book);
                 context.SaveChanges();
             }
@@ -87,6 +92,14 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
+                foreach (var book in books)
+                {
+                    if (book.IsDeleted)
+                    {
+                        context.MarkDeleted(book);
+                    }
+                }
+
                 context.Books.UpdateRange(books);
                 context.SaveChanges();
             }

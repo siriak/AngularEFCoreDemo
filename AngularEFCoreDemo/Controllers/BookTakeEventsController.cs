@@ -65,6 +65,11 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
+                if (bookTakeEvent.IsDeleted)
+                {
+                    context.MarkDeleted(bookTakeEvent);
+                }
+
                 context.BookTakeEvents.Update(bookTakeEvent);
                 context.SaveChanges();
             }
@@ -81,6 +86,14 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
+                foreach (var bookTakeEvent in bookTakeEvents)
+                {
+                    if (bookTakeEvent.IsDeleted)
+                    {
+                        context.MarkDeleted(bookTakeEvent);
+                    }
+                }
+
                 context.BookTakeEvents.UpdateRange(bookTakeEvents);
                 context.SaveChanges();
             }

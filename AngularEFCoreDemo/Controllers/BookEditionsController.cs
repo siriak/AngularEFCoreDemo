@@ -65,6 +65,11 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
+                if (bookEdition.IsDeleted)
+                {
+                    context.MarkDeleted(bookEdition);
+                }
+
                 context.BookEditions.Update(bookEdition);
                 context.SaveChanges();
             }
@@ -81,6 +86,14 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
+                foreach (var bookEdition in bookEditions)
+                {
+                    if (bookEdition.IsDeleted)
+                    {
+                        context.MarkDeleted(bookEdition);
+                    }
+                }
+
                 context.BookEditions.UpdateRange(bookEditions);
                 context.SaveChanges();
             }
