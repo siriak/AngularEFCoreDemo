@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
-import { ReaderTicket, ReaderTicketsClient } from '../clients';
+import { ReaderTicket, ReaderTicketsClient, PeopleClient, Person } from '../clients';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'reader-tickets',
-  templateUrl: './reader-tickets.component.html'
+  templateUrl: './reader-tickets.component.html',
+  styles: ['td { white-space: nowrap; }'],
 })
 export class ReaderTicketsComponent {
   public showDeleted: boolean;
   readerTickets: ReaderTicket[];
+  people: Person[];
 
-  constructor(private client: ReaderTicketsClient, private route: ActivatedRoute) {
+  constructor(private client: ReaderTicketsClient, private peopleClient: PeopleClient, private route: ActivatedRoute) {
     this.get();
+    this.peopleClient.getAll().subscribe(result => this.people = result);
   }
 
   update() {
@@ -37,7 +40,9 @@ export class ReaderTicketsComponent {
   }
 
   getList() {
-    return this.readerTickets.filter(readerTicket => this.showDeleted || !readerTicket.isDeleted)
+		if (this.readerTickets) {
+		  return this.readerTickets.filter(readerTicket => this.showDeleted || !readerTicket.isDeleted);
+		}
   }
   
   parseDate(dateString: string): Date {

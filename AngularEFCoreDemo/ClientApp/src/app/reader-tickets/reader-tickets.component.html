@@ -7,7 +7,7 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
     <tr>
       <th>Id</th>
       <th>Creation Date</th>
-      <th>Expiration Name</th>
+      <th>Expiration Date</th>
       <th>Reader</th>
       <th>Deleted</th>
     </tr>
@@ -17,7 +17,15 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
       <td><input type="number" [(ngModel)]="readerTicket.readerTicketId"></td>
       <td><input type="date" [value]="readerTicket.creationDate | date:'yyyy-MM-dd'" (input)="readerTicket.creationDate=parseDate($event.target.value)"></td>
       <td><input type="date" [value]="readerTicket.expirationDate | date:'yyyy-MM-dd'" (input)="readerTicket.expirationDate=parseDate($event.target.value)"></td>
-      <td><input type="number" [(ngModel)]="readerTicket.readerId"><a [routerLink]="['/people', readerTicket.readerId]">View</a></td>
+      <td>
+        <select [(ngModel)]="readerTicket.readerId">
+          <ng-template *ngFor="let reader of people" [ngIf]="true">
+            <option *ngIf="readerTicket.readerId === reader.personId" [value]="reader.personId" selected>{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+            <option *ngIf="readerTicket.readerId !== reader.personId" [value]="reader.personId">{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/people', readerTicket.readerId]" style="margin-left: 5px">View</a>
+      </td>
       <td><input type="checkbox" [(ngModel)]="readerTicket.isDeleted"></td>
     </tr>
   </tbody>

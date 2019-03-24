@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'book-editions',
-  templateUrl: './book-editions.component.html'
+  templateUrl: './book-editions.component.html',
+  styles: ['td { white-space: nowrap; }'],
 })
 export class BookEditionsComponent {
   public showDeleted: boolean;
@@ -37,6 +38,8 @@ export class BookEditionsComponent {
   }
 
   getList() {
-    return this.bookEditions.filter(bookEdition => this.showDeleted || !bookEdition.isDeleted)
+		if (this.bookEditions) {
+		  return this.bookEditions.filter(bookEdition => this.showDeleted || !bookEdition.isDeleted);
+		}
   }
 }

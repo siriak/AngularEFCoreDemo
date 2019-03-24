@@ -21,7 +21,21 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
       <td><input type="text" [(ngModel)]="person.lastName"></td>
       <td><input type="date" [value]="person.birthDate | date:'yyyy-MM-dd'" (input)="person.birthDate=parseDate($event.target.value)"></td>
       <td><input type="date" [value]="person.deathDate | date:'yyyy-MM-dd'" (input)="person.deathDate=parseDate($event.target.value)"></td>
-      <td><input type="number" [(ngModel)]="person.roles"></td>
+      <td>
+        <select [(ngModel)]="person.role">
+            <option *ngIf="person.role === 0" [value]="0" selected>None</option>
+            <option *ngIf="person.role !== 0" [value]="0">None</option>
+
+            <option *ngIf="person.role === 1" [value]="1" selected>Student</option>
+            <option *ngIf="person.role !== 1" [value]="1">Student</option>
+
+            <option *ngIf="person.role === 2" [value]="2" selected>Teacher</option>
+            <option *ngIf="person.role !== 2" [value]="2">Teacher</option>
+
+            <option *ngIf="person.role === 3" [value]="3" selected>Librarian</option>
+            <option *ngIf="person.role !== 3" [value]="3">Librarian</option>
+        </select>
+      </td>
       <td><input type="checkbox" [(ngModel)]="person.isDeleted"></td>
     </tr>
   </tbody>

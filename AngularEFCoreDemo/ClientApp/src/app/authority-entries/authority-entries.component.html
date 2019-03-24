@@ -16,8 +16,24 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
     <tr *ngFor="let authorityEntry of getList()">
       <td><input type="number" [(ngModel)]="authorityEntry.authorityEntryId"></td>
       <td><input type="number" [(ngModel)]="authorityEntry.order"></td>
-      <td><input type="number" [(ngModel)]="authorityEntry.personId"><a [routerLink]="['/people', authorityEntry.personId]">View</a></td>
-      <td><input type="number" [(ngModel)]="authorityEntry.bookEditionId"><a [routerLink]="['/book-editions', authorityEntry.bookEditionId]">View</a></td>
+      <td>
+        <select [(ngModel)]="authorityEntry.personId">
+          <ng-template *ngFor="let person of people" [ngIf]="true">
+            <ng-template [ngIf]="!person.isDeleted || authorityEntry.isDeleted">
+              <option *ngIf="person.personId === authorityEntry.personId" [value]="person.personId" selected>{{person.personId}}) {{person.firstName}} {{person.lastName}}</option>
+              <option *ngIf="person.personId !== authorityEntry.personId" [value]="person.personId">{{person.personId}}) {{person.firstName}} {{person.lastName}}</option>
+            </ng-template>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/people', authorityEntry.personId]" style="margin-left: 5px">View</a></td>
+      <td>
+        <select [(ngModel)]="authorityEntry.bookEditionId">
+          <ng-template *ngFor="let edition of bookEditions" [ngIf]="true">
+            <option *ngIf="edition.bookEditionId === authorityEntry.bookEditionId" [value]="edition.bookEditionId" selected>{{edition.bookEditionId}} {{edition.title}}</option>
+            <option *ngIf="edition.bookEditionId !== authorityEntry.bookEditionId" [value]="edition.bookEditionId">{{edition.bookEditionId}} {{edition.title}}</option>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/book-editions', authorityEntry.bookEditionId]" style="margin-left: 5px">View</a></td>
       <td><input type="checkbox" [(ngModel)]="authorityEntry.isDeleted"></td>
     </tr>
   </tbody>

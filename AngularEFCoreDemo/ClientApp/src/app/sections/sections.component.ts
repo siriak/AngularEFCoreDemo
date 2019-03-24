@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SectionsClient, Section } from '../clients';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'sections',
-  templateUrl: './sections.component.html'
+  templateUrl: './sections.component.html',
+  styles: ['td { white-space: nowrap; }'],
 })
 export class SectionsComponent {
   public showDeleted: boolean;
@@ -37,6 +38,8 @@ export class SectionsComponent {
   }
 
   getList() {
-    return this.sections.filter(book => this.showDeleted || !book.isDeleted)
+    if (this.sections) {
+	  return this.sections.filter(book => this.showDeleted || !book.isDeleted);
+    }
   }
 }

@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'people',
-  templateUrl: './people.component.html'
+  templateUrl: './people.component.html',
+  styles: ['td { white-space: nowrap; }'],
 })
 export class PeopleComponent {
   public showDeleted: boolean;
@@ -37,7 +38,9 @@ export class PeopleComponent {
   }
 
   getList() {
-    return this.people.filter(person => this.showDeleted || !person.isDeleted)
+		if (this.people) {
+		  return this.people.filter(person => this.showDeleted || !person.isDeleted);
+		}
   }
   
   parseDate(dateString: string): Date {

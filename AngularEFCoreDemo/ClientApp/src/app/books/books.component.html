@@ -14,8 +14,24 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
   <tbody>
     <tr *ngFor="let book of getList()">
       <td><input type="number" [(ngModel)]="book.bookId"></td>
-      <td><input type="number" [(ngModel)]="book.bookEditionId"><a [routerLink]="['/book-editions', book.bookEditionId]">View</a></td>
-      <td><input type="number" [(ngModel)]="book.sectionId"><a [routerLink]="['/sections', book.sectionId]">View</a></td>
+      <td>
+        <select [(ngModel)]="book.bookEditionId">
+          <ng-template *ngFor="let edition of bookEditions" [ngIf]="true">
+            <option *ngIf="edition.bookEditionId === book.bookEditionId" [value]="edition.bookEditionId" selected>{{edition.bookEditionId}} {{edition.title}}</option>
+            <option *ngIf="edition.bookEditionId !== book.bookEditionId" [value]="edition.bookEditionId">{{edition.bookEditionId}} {{edition.title}}</option>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/book-editions', book.bookEditionId]" style="margin-left: 5px">View</a>
+      </td>
+      <td>
+        <select [(ngModel)]="book.sectionId">
+          <ng-template *ngFor="let section of sections" [ngIf]="true">
+            <option *ngIf="book.sectionId === section.sectionId" [value]="section.sectionId" selected>{{section.sectionId}}-B{{section.building}}-R{{section.room}}-C{{section.cabinet}}-S{{section.shelf}}</option>
+            <option *ngIf="book.sectionId !== section.sectionId" [value]="section.sectionId">{{section.sectionId}}-B{{section.building}}-R{{section.room}}-C{{section.cabinet}}-S{{section.shelf}}</option>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/sections', book.sectionId]" style="margin-left: 5px">View</a>
+      </td>
       <td><input type="checkbox" [(ngModel)]="book.isDeleted"></td>
     </tr>
   </tbody>

@@ -1,17 +1,22 @@
 import { Component } from '@angular/core';
-import { BooksClient, Book } from '../clients';
+import { BooksClient, Book, BookEdition, BookEditionsClient, Section, SectionsClient } from '../clients';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'books',
-  templateUrl: './books.component.html'
+  templateUrl: './books.component.html',
+  styles: ['td { white-space: nowrap; }'],
 })
 export class BooksComponent {
   public showDeleted: boolean;
   books: Book[];
+  bookEditions: BookEdition[];
+  sections: Section[];
 
-  constructor(private client: BooksClient, private route: ActivatedRoute) {
+  constructor(private client: BooksClient, private bookEditionsClient: BookEditionsClient, private sectionsClient: SectionsClient, private route: ActivatedRoute) {
     this.get();
+    this.bookEditionsClient.getAll().subscribe(result => this.bookEditions = result);
+    this.sectionsClient.getAll().subscribe(result => this.sections = result);
   }
 
   update() {
@@ -37,6 +42,8 @@ export class BooksComponent {
   }
 
   getList() {
-    return this.books.filter(book => this.showDeleted || !book.isDeleted)
+    if (this.books) {
+	  return this.books.filter(book => this.showDeleted || !book.isDeleted);
+    }
   }
 }

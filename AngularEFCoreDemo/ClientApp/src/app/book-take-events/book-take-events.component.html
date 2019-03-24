@@ -18,9 +18,33 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
   <tbody>
     <tr *ngFor="let bookTakeEvent of getList()">
       <td><input type="number" [(ngModel)]="bookTakeEvent.bookTakeEventId"></td>
-      <td><input type="number" [(ngModel)]="bookTakeEvent.bookId"><a [routerLink]="['/books', bookTakeEvent.bookId]">View</a></td>
-      <td><input type="number" [(ngModel)]="bookTakeEvent.ticketId"><a [routerLink]="['/reader-tickets', bookTakeEvent.ticketId]">View</a></td>
-      <td><input type="number" [(ngModel)]="bookTakeEvent.personId"><a [routerLink]="['/people', bookTakeEvent.personId]">View</a></td>
+      <td style="white-space: nowrap;">
+        <div>
+          <select [(ngModel)]="bookTakeEvent.bookId">
+            <ng-template *ngFor="let book of books" [ngIf]="true">
+              <option *ngIf="book.bookId === bookTakeEvent.bookId" [value]="book.bookId" selected>{{book.bookId}} {{book.bookEdition.title}}</option>
+              <option *ngIf="book.bookId !== bookTakeEvent.bookId" [value]="book.bookId">{{book.bookId}} {{book.bookEdition.title}}</option>
+            </ng-template>
+          </select>
+          <a [routerLink]="['/books', bookTakeEvent.bookId]" style="margin-left: 5px">View</a>
+        </div>
+      </td>
+      <td>
+        <select [(ngModel)]="bookTakeEvent.ticketId">
+          <ng-template *ngFor="let ticket of readerTickets" [ngIf]="true">
+            <option *ngIf="ticket.readerTicketId === bookTakeEvent.ticketId" [value]="ticket.readerTicketId" selected>{{ticket.readerTicketId}} {{ticket.reader.firstName}} {{ticket.reader.lastName}}</option>
+            <option *ngIf="ticket.readerTicketId !== bookTakeEvent.ticketId" [value]="ticket.readerTicketId">{{ticket.readerTicketId}} {{ticket.reader.firstName}} {{ticket.reader.lastName}}</option>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/reader-tickets', bookTakeEvent.ticketId]" style="margin-left: 5px">View</a></td>
+      <td>
+        <select [(ngModel)]="bookTakeEvent.personId">
+          <ng-template *ngFor="let reader of people" [ngIf]="true">
+            <option *ngIf="bookTakeEvent.personId === reader.personId" [value]="reader.personId" selected>{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+            <option *ngIf="bookTakeEvent.personId !== reader.personId" [value]="reader.personId">{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+          </ng-template>
+        </select>
+        <a [routerLink]="['/people', bookTakeEvent.personId]" style="margin-left: 5px">View</a></td>
       <td><input type="date" [value]="bookTakeEvent.giveDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.giveDate=parseDate($event.target.value)"></td>
       <td><input type="date" [value]="bookTakeEvent.expectedReturnDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.expectedReturnDate=parseDate($event.target.value)"></td>
       <td><input type="date" [value]="bookTakeEvent.actualReturnDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.actualReturnDate=parseDate($event.target.value)"></td>
