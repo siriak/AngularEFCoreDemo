@@ -71,6 +71,7 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
+                readerTicket.Reader = null;
                 if (readerTicket.IsDeleted)
                 {
                     context.MarkDeleted(readerTicket);
@@ -94,6 +95,7 @@ namespace AngularEFCoreDemo.Controllers
             {
                 foreach (var readerTicket in readerTickets)
                 {
+                    readerTicket.Reader = null;
                     if (readerTicket.IsDeleted)
                     {
                         context.MarkDeleted(readerTicket);
