@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Person, PeopleClient } from '../clients';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'people',
@@ -11,7 +13,11 @@ export class PeopleComponent {
   public showDeleted: boolean;
   people: Person[];
 
-  constructor(private client: PeopleClient, private route: ActivatedRoute) {
+  constructor(
+    private client: PeopleClient,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    ) {
     this.get();
   }
 
@@ -49,5 +55,16 @@ export class PeopleComponent {
     } else {
         return null;
     }
+  }
+
+  entryDeleted(isDeleted: boolean, person: Person) {
+		if (isDeleted) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+      dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'yes') {
+          person.isDeleted = false;
+        }
+      });
+		}
   }
 }

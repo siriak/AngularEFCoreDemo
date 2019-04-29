@@ -26,7 +26,7 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
         </select>
         <a [routerLink]="['/people', readerTicket.readerId]" style="margin-left: 5px">View</a>
       </td>
-      <td><input type="checkbox" [(ngModel)]="readerTicket.isDeleted"></td>
+      <td><input type="checkbox" [(ngModel)]="readerTicket.isDeleted" (ngModelChange)="entryDeleted($event, readerTicket)"></td>
     </tr>
   </tbody>
 </table>

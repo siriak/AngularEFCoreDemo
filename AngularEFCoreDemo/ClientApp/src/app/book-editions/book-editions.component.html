@@ -14,7 +14,7 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
     <tr *ngFor="let bookEdition of getList()">
       <td><input type="number" [(ngModel)]="bookEdition.bookEditionId"></td>
       <td><input type="text" [(ngModel)]="bookEdition.title"></td>
-      <td><input type="checkbox" [(ngModel)]="bookEdition.isDeleted"></td>
+      <td><input type="checkbox" [(ngModel)]="bookEdition.isDeleted" (ngModelChange)="entryDeleted($event, bookEdition)"></td>
     </tr>
   </tbody>
 </table>

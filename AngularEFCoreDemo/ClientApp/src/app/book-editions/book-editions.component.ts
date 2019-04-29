@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BookEdition, BookEditionsClient } from '../clients';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'book-editions',
@@ -11,7 +13,11 @@ export class BookEditionsComponent {
   public showDeleted: boolean;
   bookEditions: BookEdition[];
 
-  constructor(private client: BookEditionsClient, private route: ActivatedRoute) {
+  constructor(
+    private client: BookEditionsClient,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    ) {
     this.get();
   }
 
@@ -40,6 +46,17 @@ export class BookEditionsComponent {
   getList() {
 		if (this.bookEditions) {
 		  return this.bookEditions.filter(bookEdition => this.showDeleted || !bookEdition.isDeleted);
+		}
+  }
+
+  entryDeleted(isDeleted: boolean, bookEdition: BookEdition) {
+		if (isDeleted) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+      dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'yes') {
+          bookEdition.isDeleted = false;
+        }
+      });
 		}
   }
 }

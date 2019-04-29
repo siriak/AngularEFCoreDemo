@@ -15,6 +15,9 @@ import { SectionsComponent } from './sections/sections.component';
 import { AuthorityEntriesComponent } from './authority-entries/authority-entries.component';
 import { BookTakeEventsComponent } from './book-take-events/book-take-events.component';
 import { BookEditionsComponent } from './book-editions/book-editions.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,11 +31,14 @@ import { BookEditionsComponent } from './book-editions/book-editions.component';
     BookTakeEventsComponent,
     SectionsComponent,
     BookEditionsComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'books', component: BooksComponent },
@@ -59,7 +65,15 @@ import { BookEditionsComponent } from './book-editions/book-editions.component';
     BookTakeEventsClient,
     SectionsClient,
     BookEditionsClient,
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true },
+    }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+  ],
 })
 export class AppModule { }

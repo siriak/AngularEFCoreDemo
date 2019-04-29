@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { SectionsClient, Section } from '../clients';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'sections',
@@ -11,7 +13,11 @@ export class SectionsComponent {
   public showDeleted: boolean;
   sections: Section[];
 
-  constructor(private client: SectionsClient, private route: ActivatedRoute) {
+  constructor(
+    private client: SectionsClient,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    ) {
     this.get();
   }
 
@@ -41,5 +47,16 @@ export class SectionsComponent {
     if (this.sections) {
 	  return this.sections.filter(book => this.showDeleted || !book.isDeleted);
     }
+  }
+
+  entryDeleted(isDeleted: boolean, section: Section) {
+		if (isDeleted) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+      dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'yes') {
+          section.isDeleted = false;
+        }
+      });
+		}
   }
 }

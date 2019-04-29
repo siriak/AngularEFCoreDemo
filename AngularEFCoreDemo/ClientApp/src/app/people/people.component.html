@@ -36,7 +36,7 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
             <option *ngIf="person.role !== 3" [value]="3">Librarian</option>
         </select>
       </td>
-      <td><input type="checkbox" [(ngModel)]="person.isDeleted"></td>
+      <td><input type="checkbox" [(ngModel)]="person.isDeleted" (ngModelChange)="entryDeleted($event, person)"></td>
     </tr>
   </tbody>
 </table>

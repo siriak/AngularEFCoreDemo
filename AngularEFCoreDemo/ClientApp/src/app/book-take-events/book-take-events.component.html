@@ -40,15 +40,15 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
       <td>
         <select [(ngModel)]="bookTakeEvent.personId">
           <ng-template *ngFor="let reader of people" [ngIf]="true">
-            <option *ngIf="bookTakeEvent.personId === reader.personId" [value]="reader.personId" selected>{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
-            <option *ngIf="bookTakeEvent.personId !== reader.personId" [value]="reader.personId">{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+            <option *ngIf="reader.role === 3 && bookTakeEvent.personId === reader.personId" [value]="reader.personId" selected>{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+            <option *ngIf="reader.role === 3 && bookTakeEvent.personId !== reader.personId" [value]="reader.personId">{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
           </ng-template>
         </select>
         <a [routerLink]="['/people', bookTakeEvent.personId]" style="margin-left: 5px">View</a></td>
       <td><input type="date" [value]="bookTakeEvent.giveDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.giveDate=parseDate($event.target.value)"></td>
       <td><input type="date" [value]="bookTakeEvent.expectedReturnDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.expectedReturnDate=parseDate($event.target.value)"></td>
       <td><input type="date" [value]="bookTakeEvent.actualReturnDate | date:'yyyy-MM-dd'" (input)="bookTakeEvent.actualReturnDate=parseDate($event.target.value)"></td>
-      <td><input type="checkbox" [(ngModel)]="bookTakeEvent.isDeleted"></td>
+      <td><input type="checkbox" [(ngModel)]="bookTakeEvent.isDeleted" (ngModelChange)="entryDeleted($event, bookTakeEvent)"></td>
     </tr>
   </tbody>
 </table>

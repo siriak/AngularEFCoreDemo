@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthorityEntry, AuthorityEntriesClient, BookEditionsClient, BookEdition, PeopleClient, Person } from '../clients';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'authority-entries',
@@ -13,7 +15,13 @@ export class AuthorityEntriesComponent {
   bookEditions: BookEdition[];
   people: Person[];
 
-  constructor(private client: AuthorityEntriesClient, private bookEditionsClient: BookEditionsClient, private peopleClient: PeopleClient, private route: ActivatedRoute) {
+  constructor(
+    private client: AuthorityEntriesClient,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    bookEditionsClient: BookEditionsClient,
+    peopleClient: PeopleClient,
+    ) {
     this.get();
     bookEditionsClient.getAll().subscribe(
       result => this.bookEditions = result,
@@ -48,6 +56,17 @@ export class AuthorityEntriesComponent {
   getList() {
 		if (this.authorityEntries) {
 		  return this.authorityEntries.filter(authorityEntry => this.showDeleted || !authorityEntry.isDeleted);
+		}
+  }
+
+  entryDeleted(isDeleted: boolean, authorityEntry: AuthorityEntry) {
+		if (isDeleted) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+      dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'yes') {
+          authorityEntry.isDeleted = false;
+        }
+      });
 		}
   }
 }

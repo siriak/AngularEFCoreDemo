@@ -34,7 +34,7 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
           </ng-template>
         </select>
         <a [routerLink]="['/book-editions', authorityEntry.bookEditionId]" style="margin-left: 5px">View</a></td>
-      <td><input type="checkbox" [(ngModel)]="authorityEntry.isDeleted"></td>
+      <td><input type="checkbox" [(ngModel)]="authorityEntry.isDeleted" (ngModelChange)="entryDeleted($event, authorityEntry)"></td>
     </tr>
   </tbody>
 </table>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BookTakeEvent, BookTakeEventsClient, ReaderTicket, Person, Book, PeopleClient, ReaderTicketsClient, BooksClient } from '../clients';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'book-take-events',
@@ -14,7 +16,14 @@ export class BookTakeEventsComponent {
   readerTickets: ReaderTicket[];
   books: Book[];
 
-  constructor(private client: BookTakeEventsClient, private peopleClient: PeopleClient, private readerTicketsClient: ReaderTicketsClient, private booksClient: BooksClient, private route: ActivatedRoute) {
+  constructor(
+    private client: BookTakeEventsClient,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    peopleClient: PeopleClient,
+    readerTicketsClient: ReaderTicketsClient,
+    booksClient: BooksClient,
+    ) {
     this.get();
     peopleClient.getAll().subscribe(
       result => this.people = result,
@@ -61,5 +70,16 @@ export class BookTakeEventsComponent {
     } else {
         return null;
     }
+  }
+
+  entryDeleted(isDeleted: boolean, bookTakeEvent: BookTakeEvent) {
+		if (isDeleted) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent);
+      dialogRef.afterClosed().subscribe(res => {
+        if (res !== 'yes') {
+          bookTakeEvent.isDeleted = false;
+        }
+      });
+		}
   }
 }
