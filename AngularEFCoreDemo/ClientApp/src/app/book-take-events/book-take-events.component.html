@@ -39,9 +39,9 @@ Show deleted entries: <input type="checkbox" [(ngModel)]="showDeleted">
         <a [routerLink]="['/reader-tickets', bookTakeEvent.ticketId]" style="margin-left: 5px">View</a></td>
       <td>
         <select [(ngModel)]="bookTakeEvent.personId">
-          <ng-template *ngFor="let reader of people" [ngIf]="true">
-            <option *ngIf="reader.role === 3 && bookTakeEvent.personId === reader.personId" [value]="reader.personId" selected>{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
-            <option *ngIf="reader.role === 3 && bookTakeEvent.personId !== reader.personId" [value]="reader.personId">{{reader.personId}} {{reader.firstName}} {{reader.lastName}}</option>
+          <ng-template *ngFor="let librarian of librarians" [ngIf]="true">
+            <option *ngIf="bookTakeEvent.personId === librarian.personId" [value]="librarian.personId" selected>{{librarian.personId}} {{librarian.firstName}} {{librarian.lastName}}</option>
+            <option *ngIf="bookTakeEvent.personId !== librarian.personId" [value]="librarian.personId">{{librarian.personId}} {{librarian.firstName}} {{librarian.lastName}}</option>
           </ng-template>
         </select>
         <a [routerLink]="['/people', bookTakeEvent.personId]" style="margin-left: 5px">View</a></td>

@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AngularEFCoreDemo.Models
@@ -17,6 +18,8 @@ namespace AngularEFCoreDemo.Models
         public DbSet<ReaderTicket> ReaderTickets { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<BookTakeEvent> BookTakeEvents { get; set; }
+
+        public List<Person> GetLibrarians() => People.Where(p => p.Role == Role.Librarian).ToList();
 
         public void MarkDeleted(Person person)
         {

@@ -12,7 +12,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class BookTakeEventsComponent {
   public showDeleted: boolean;
   bookTakeEvents: BookTakeEvent[];
-  people: Person[];
+  librarians: Person[];
   readerTickets: ReaderTicket[];
   books: Book[];
 
@@ -25,8 +25,8 @@ export class BookTakeEventsComponent {
     booksClient: BooksClient,
     ) {
     this.get();
-    peopleClient.getAll().subscribe(
-      result => this.people = result,
+    peopleClient.getLibrarians().subscribe(
+      result => this.librarians = result,
       error => console.error(error));
     readerTicketsClient.getAll().subscribe(
       result => this.readerTickets = result,

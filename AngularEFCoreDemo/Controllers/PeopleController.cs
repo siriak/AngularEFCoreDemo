@@ -15,6 +15,9 @@ namespace AngularEFCoreDemo.Controllers
         [HttpGet]
         public ActionResult<ICollection<Person>> Get() => context.People.ToList();
 
+        [HttpGet("librarians")]
+        public ActionResult<ICollection<Person>> GetLibrarians() => context.GetLibrarians();
+
         [HttpGet("{id}")]
         public ActionResult<Person> Get(int id) => context.People.Find(id);
 
