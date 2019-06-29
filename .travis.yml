@@ -6,7 +6,7 @@ node_js: 6
 dotnet: 2.2
 script:
  - dotnet build
- - ls
  - cd ./AngularEFCoreDemo/ClientApp/
+ - npm i
  - ng lint
- - ng build
+ - ng build --prod
