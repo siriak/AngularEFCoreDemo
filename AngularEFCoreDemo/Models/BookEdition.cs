@@ -8,6 +8,6 @@ namespace AngularEFCoreDemo.Models
         public string Title { get; set; }
         public bool IsDeleted { get; set; }
 
-        public ICollection<AuthorityEntry> Authors;
+        public ICollection<AuthorityEntry> Authors { get; set; }
     }
 }

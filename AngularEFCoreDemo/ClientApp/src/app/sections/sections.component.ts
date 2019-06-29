@@ -57,6 +57,6 @@ export class SectionsComponent {
           section.isDeleted = false;
         }
       });
-		}
+    }
   }
 }

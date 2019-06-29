@@ -48,7 +48,7 @@ export class PeopleComponent {
 		  return this.people.filter(person => this.showDeleted || !person.isDeleted);
 		}
   }
-  
+
   parseDate(dateString: string): Date {
     if (dateString) {
         return new Date(dateString);
