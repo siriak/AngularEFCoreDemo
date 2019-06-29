@@ -2,9 +2,11 @@ language: csharp
 solution: AngularEFCoreDemo.sln
 mono: none
 dist: xenial
+node_js: 6
 dotnet: 2.2
 script:
- - cd ./ClientApp/
- - ng lint
- - cd ..
  - dotnet build
+ - ls
+ - cd ./AngularEFCoreDemo/ClientApp/
+ - ng lint
+ - ng build
