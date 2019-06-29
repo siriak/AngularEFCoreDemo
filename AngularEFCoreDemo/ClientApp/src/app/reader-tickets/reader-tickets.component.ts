@@ -51,7 +51,7 @@ export class ReaderTicketsComponent {
 		  return this.readerTickets.filter(readerTicket => this.showDeleted || !readerTicket.isDeleted);
 		}
   }
-  
+
   parseDate(dateString: string): Date {
     if (dateString) {
         return new Date(dateString);

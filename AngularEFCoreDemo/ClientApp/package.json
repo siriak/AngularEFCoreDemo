@@ -13,7 +13,10 @@
 	"private": true,
 	"eslintConfig ": {
 		"rules": {
-			"quotes": [ "error", "single" ]
+			"quotes": [
+				"error",
+				"single"
+			]
 		}
 	},
 	"dependencies": {
