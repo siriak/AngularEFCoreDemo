@@ -63,7 +63,7 @@ export class BookTakeEventsComponent {
 		  return this.bookTakeEvents.filter(bookTakeEvent => this.showDeleted || !bookTakeEvent.isDeleted);
 		}
   }
-  
+
   parseDate(dateString: string): Date {
     if (dateString) {
         return new Date(dateString);
