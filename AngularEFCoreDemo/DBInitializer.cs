@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace AngularEFCoreDemo
 {
-    internal class DBInitializer
+    internal static class DBInitializer
     {
         public static void Seed(LibraryContext context)
         {
@@ -12,7 +12,7 @@ namespace AngularEFCoreDemo
 
             if (!context.Books.Any())
             {
-                var king = new Person()
+                var king = new Person
                 {
                     FirstName = "Stephen",
                     LastName = "King",
@@ -20,19 +20,19 @@ namespace AngularEFCoreDemo
                     Role = Role.None,
                 };
 
-                var bookIt = new BookEdition()
+                var bookIt = new BookEdition
                 {
                     Title = "It",
                 };
 
-                var authEntry = new AuthorityEntry()
+                var authEntry = new AuthorityEntry
                 {
                     Order = 1,
                     Person = king,
                     BookEditionId = 1,
                 };
 
-                var section = new Section()
+                var section = new Section
                 {
                     Building = 1,
                     Room = 2,
@@ -40,25 +40,25 @@ namespace AngularEFCoreDemo
                     Shelf = 4,
                 };
 
-                var pit1 = new Book()
+                var pit1 = new Book
                 {
                     BookEdition = bookIt,
                     Section = section,
                 };
 
-                var pit2 = new Book()
+                var pit2 = new Book
                 {
                     BookEdition = bookIt,
                     Section = section,
                 };
 
-                var pit3 = new Book()
+                var pit3 = new Book
                 {
                     BookEdition = bookIt,
                     Section = section,
                 };
 
-                var me = new Person()
+                var me = new Person
                 {
                     FirstName = "Andrii",
                     LastName = "Siriak",
@@ -66,14 +66,14 @@ namespace AngularEFCoreDemo
                     Role = Role.Student,
                 };
 
-                var myTicket = new ReaderTicket()
+                var myTicket = new ReaderTicket
                 {
                     CreationDate = new DateTime(2017, 9, 1),
                     ExpirationDate = new DateTime(2017, 9, 1).AddYears(5),
                     Reader = me,
                 };
 
-                var marivanna = new Person()
+                var marivanna = new Person
                 {
                     FirstName = "Marija",
                     LastName = "Ivanova",
@@ -81,7 +81,7 @@ namespace AngularEFCoreDemo
                     Role = Role.Librarian,
                 };
 
-                var bookTake = new BookTakeEvent()
+                var bookTake = new BookTakeEvent
                 {
                     Book = pit1,
                     ExpectedReturnDate = DateTime.Today.AddMonths(1),
