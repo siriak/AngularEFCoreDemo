@@ -71,12 +71,6 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
-                readerTicket.Reader = null;
-                if (readerTicket.IsDeleted)
-                {
-                    context.MarkDeleted(readerTicket);
-                }
-
                 context.ReaderTickets.Update(readerTicket);
                 context.SaveChanges();
             }
@@ -93,15 +87,6 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
-                foreach (var readerTicket in readerTickets)
-                {
-                    readerTicket.Reader = null;
-                    if (readerTicket.IsDeleted)
-                    {
-                        context.MarkDeleted(readerTicket);
-                    }
-                }
-
                 context.ReaderTickets.UpdateRange(readerTickets);
                 context.SaveChanges();
             }

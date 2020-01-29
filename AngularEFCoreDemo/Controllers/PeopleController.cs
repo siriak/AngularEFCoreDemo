@@ -68,11 +68,6 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
-                if (person.IsDeleted)
-                {
-                    context.MarkDeleted(person);
-                }
-
                 context.People.Update(person);
                 context.SaveChanges();
             }
@@ -89,14 +84,6 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
-                foreach (var person in people)
-                {
-                    if (person.IsDeleted)
-                    {
-                        context.MarkDeleted(person);
-                    }
-                }
-
                 context.People.UpdateRange(people);
                 context.SaveChanges();
             }

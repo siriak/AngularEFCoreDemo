@@ -18,64 +18,64 @@ namespace AngularEFCoreDemo.Models
         public DbSet<BookTakeEvent> BookTakeEvents { get; set; }
 
         public List<Person> GetLibrarians() => People.Where(p => p.Role == Role.Librarian).ToList();
-
-        public void MarkDeleted(Person person)
+        
+        public override int SaveChanges()
         {
-            person.IsDeleted = true;
-
-            foreach (var authorityEntry in AuthorityEntries.Where(ae => ae.PersonId == person.PersonId))
+            foreach (var entry in ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted))
             {
-                MarkDeleted(authorityEntry);
+                entry.State = EntityState.Modified;
+                entry.CurrentValues["IsDeleted"] = true;
             }
 
-            foreach (var readerTicket in ReaderTickets.Where(rt => rt.ReaderId == person.PersonId))
+            var deleted = ChangeTracker.Entries()
+                .Where(x => x.State == EntityState.Modified && ((dynamic) x.Entity).IsDeleted)
+                .Select(x => (dynamic)x.Entity).ToList();
+            foreach (var entity in deleted)
             {
-                MarkDeleted(readerTicket);
+                MarkDeleted(entity);
             }
+
+            return base.SaveChanges();
         }
-
-        public void MarkDeleted(ReaderTicket readerTicket)
+        
+        private void MarkDeleted(ReaderTicket readerTicket)
         {
             readerTicket.IsDeleted = true;
-
-            foreach (var bookTakeEvent in BookTakeEvents.Where(bte => bte.TicketId == readerTicket.ReaderTicketId))
+            foreach (var bookTakeEvent in BookTakeEvents.Where(bte => bte.TicketId == readerTicket.ReaderTicketId && !bte.IsDeleted))
             {
                 MarkDeleted(bookTakeEvent);
             }
         }
 
-        public void MarkDeleted(BookEdition bookEdition)
+        private void MarkDeleted(BookEdition bookEdition)
         {
             bookEdition.IsDeleted = true;
-
-            foreach (var book in Books.Where(b => b.BookEditionId == bookEdition.BookEditionId))
+            foreach (var book in Books.Where(b => b.BookEditionId == bookEdition.BookEditionId && !b.IsDeleted))
             {
                 MarkDeleted(book);
             }
         }
 
-        public void MarkDeleted(Book book)
+        private void MarkDeleted(Book book)
         {
             book.IsDeleted = true;
-
-            foreach (var bookTakeEvent in BookTakeEvents.Where(bte => bte.BookId == book.BookId))
+            foreach (var bookTakeEvent in BookTakeEvents.Where(bte => bte.BookId == book.BookId && !bte.IsDeleted))
             {
                 MarkDeleted(bookTakeEvent);
             }
         }
 
-        public void MarkDeleted(Section section)
+        private void MarkDeleted(Section section)
         {
             section.IsDeleted = true;
-
-            foreach (var book in Books.Where(b => b.SectionId == section.SectionId))
+            foreach (var book in Books.Where(b => b.SectionId == section.SectionId && !b.IsDeleted))
             {
                 MarkDeleted(book);
             }
         }
 
-        public void MarkDeleted(AuthorityEntry authorityEntry) => authorityEntry.IsDeleted = true;
+        private void MarkDeleted(AuthorityEntry authorityEntry) => authorityEntry.IsDeleted = true;
 
-        public void MarkDeleted(BookTakeEvent bookTakeEvent) => bookTakeEvent.IsDeleted = true;
+        private void MarkDeleted(BookTakeEvent bookTakeEvent) => bookTakeEvent.IsDeleted = true;
     }
 }
