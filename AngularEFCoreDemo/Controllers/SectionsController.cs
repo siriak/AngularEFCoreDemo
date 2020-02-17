@@ -65,11 +65,6 @@ namespace AngularEFCoreDemo.Controllers
 
             try
             {
-                if (section.IsDeleted)
-                {
-                    context.MarkDeleted(section);
-                }
-
                 context.Sections.Update(section);
                 context.SaveChanges();
             }
@@ -86,14 +81,6 @@ namespace AngularEFCoreDemo.Controllers
         {
             try
             {
-                foreach (var section in sections)
-                {
-                    if (section.IsDeleted)
-                    {
-                        context.MarkDeleted(section);
-                    }
-                }
-
                 context.Sections.UpdateRange(sections);
                 context.SaveChanges();
             }
