@@ -37,7 +37,7 @@
 		"bootstrap": "^4.3.1",
 		"bower": "^1.8.8",
 		"core-js": "^2.6.9",
-		"jquery": "^3.4.1",
+		"jquery": "^3.5.0",
 		"ng-common": "^0.8.13",
 		"popper.js": "^1.15.0",
 		"rxjs": "^6.5.2",
